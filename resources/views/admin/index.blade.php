@@ -46,16 +46,25 @@
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">商品模块</span>
+                            <span class="nav-label">SKU模块</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="graph_echarts.html">商品添加</a>
+                                <a class="J_menuItem" href="/admin/cate_add">分类模块</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="graph_flot.html">商品展示</a>
+                                <a class="J_menuItem" href="/admin/type_add">类型模块</a>
                             </li>
+                            <li>
+                                <a class="J_menuItem" href="/admin/attr_add">属性模块</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="/admin/goods_add">商品模块</a>
+                            </li>
+                            <!-- <li>
+                                <a class="J_menuItem" href="graph_flot.html">商品展示</a>
+                            </li> -->
                         </ul>
                     </li>
             </div>
