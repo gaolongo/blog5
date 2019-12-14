@@ -24,9 +24,17 @@
     </div>
 
 </body>
+<<<<<<< Updated upstream
   <link rel="stylesheet" type="text/css" href="{{asset('/admin/css/page.css')}}">
   <link rel="stylesheet" href="/admin/css/bootstrap.min.css">
   <script src="/admin/js/bootstrap.min.js"></script>
   <script src="/admin/js/jquery.min.js"></script>
   <script src="/admin/js/bootstrap.min.js"></script>
+=======
+  <link rel="stylesheet" type="text/css" href="{{asset('css/page.css')}}">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script src="/js/bootstrap.min.js"></script>
+<script src="/admin/js/jquery.min.js"></script>
+<script src="/admin/js/bootstrap.min.js"></script>
+>>>>>>> Stashed changes
 </html>

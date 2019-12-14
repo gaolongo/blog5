@@ -46,11 +46,16 @@
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
+<<<<<<< Updated upstream
                             <span class="nav-label">SKU模块</span>
+=======
+                            <span class="nav-label">用户模块</span>
+>>>>>>> Stashed changes
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
+<<<<<<< Updated upstream
                                 <a class="J_menuItem" href="/admin/cate_add">分类模块</a>
                             </li>
                             <li>
@@ -58,6 +63,12 @@
                             </li>
                             <li>
                                 <a class="J_menuItem" href="/admin/attr_add">属性模块</a>
+=======
+                                <a class="J_menuItem" href="/admin/admin">设置角色</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="/admin/role">设置权限</a>
+>>>>>>> Stashed changes
                             </li>
                             <li>
                                 <a class="J_menuItem" href="/admin/goods_add">商品模块</a>
