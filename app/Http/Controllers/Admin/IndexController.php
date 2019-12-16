@@ -12,13 +12,11 @@ use App\model\Attribute;
 use App\model\Goods;
 use App\model\GoodsAttr;
 use App\model\Product;
-
 use Illuminate\Support\Facades\Cache;
-
 use App\Model\Stat;
 use App\Model\Inventory;
 use App\Model\Summary;
-
+use App\model\Advert;
 use DB;
 class IndexController extends Controller
 {
@@ -58,7 +56,6 @@ class IndexController extends Controller
         }
         return view('admin.weather');
     }
-
     //分类视图
     public function cate_add()
     {
@@ -100,6 +97,7 @@ class IndexController extends Controller
       }
     }
 
+    //分类唯一性
     public function cate_listSave()
     {
         $cate_name=request()->cate_name;
@@ -668,4 +666,62 @@ class IndexController extends Controller
         return view('admin.summary_index',['data'=>$data,'query'=>$query]);
     }
 
+ 	  //广告模板
+ 	  
+ 	  //广告添加
+   public function advert()
+ 	{
+ 		return view('admin/advert');
+ 	}
+
+  public function advert_do(Request $request)
+ 	{
+ 		 $data=$request->all();
+         $path = "";
+        if($request->hasFile('ad_img')){
+            $path = Storage::putFile('avatars', $request->file('ad_img'));
+        };
+        // dd($path);
+        $ad_img="http://www.blog5.com/".$path;
+        // dd($ad_img);
+         $time = time();
+         // dd($time);
+ 		 $res=DB::table('advert')->insert([
+ 		 	'ad_name'=>$data['ad_name'],
+ 		 	'ad_title'=>$data['ad_title'],
+ 		 	'ad_img'=>$ad_img,
+ 		 	'time'=> $time
+ 		 ]);
+ 		 // dd($res);
+       	if($res){
+            echo "<script>alert('添加成功');location.href='/admin/advertlist';</script>";
+		}else{                          
+            echo "<script>alert('添加失败');location.href='/admin/advert';</script>";
+		}
+ 	}
+ 	//广告列表
+     public function advertlist(Request $request)
+    {
+    	$query=$request->all();
+        $where=[];
+        if($query['ad_name']??''){
+            $where[] = ['ad_name','like',"%$query[ad_name]%"];
+        }
+        $data=Advert::where($where)->paginate(3);
+        // dd($data);
+        return view('admin/advertlist',compact('data','query'));
+
+    }
+        //广告删除
+    public function ad_del($ad_id)
+    {
+    	$data=DB::table('advert')->where('ad_id','=',$ad_id)->delete();
+    	// dd($data);
+    	if($data) {
+            echo "<script>alert('删除成功');location.href='/admin/advertlist';</script>";
+		}else{                          
+            echo "<script>alert('删除失败');location.href='/admin/advertlist';</script>";
+		}
+    }
+  //  
 }

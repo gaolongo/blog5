@@ -16,6 +16,7 @@
   <button type="submit" class="btn btn-default" id="sub">添加</button>
   <button type="submit" class="btn btn-default" id="sub"><a href="{{url('admin/cate_list')}}">分类列表</a></button>
 </form>
+<<<<<<< Updated upstream
 <script>
         $('#cate_name').blur(function() {
             // alert(111);
@@ -39,4 +40,32 @@
                 }
             })
         })
+=======
+<script type="text/javascript">
+    $(function(){
+    $('#add').blur(function(){
+        var cate_name=$(this).val();
+        $.ajax({
+            url:"{{url('admin/cate_listSave')}}",
+            data:{cate_name:cate_name},
+            type:"POST",
+            dataType:"json",
+            success:function(res){
+               $('#sp').html("<span>该分类名称已存在</span>");
+            }
+        });
+    })
+   $(document).on('click','#sub',function(){
+        var flag  = false;
+        var sp=$('#sp').text();
+        // console.log(sp);
+        if(sp){
+            return false;
+        }else{
+            $('form').submit();
+        }
+    });
+});
+    </script>
+>>>>>>> Stashed changes
 @endsection

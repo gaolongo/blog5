@@ -73,7 +73,6 @@
                             </li>
                             <li>
                                 <a class="J_menuItem" href="/admin/attr_add">属性模块</a>
-
                             </li>
                             <li>
                                 <a class="J_menuItem" href="/admin/goods_add">商品模块</a>
@@ -81,6 +80,19 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">广告模板</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="/admin/advert">广告添加模块</a>
+                                 <a class="J_menuItem" href="/admin/advertlist">广告展示模块</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
                             <span class="nav-label">报表模块</span>
@@ -99,6 +111,13 @@
                             </li>
                         </ul>
                     </li>
+<!-- 
+                      <li class="layui-nav-item">
+                    <a class="" href="javascript:;">广告模板</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="/admin/advert">广告添加模块</a></dd> 
+                </dl>
+                </li> -->
             </div>
         </nav>
         <!--左侧导航结束-->
@@ -125,6 +144,7 @@
     <!-- 第三方插件 -->
     <script src="/admin/js/plugins/pace/pace.min.js"></script>
 <div style="text-align:center;">
+    
 <p>来源:<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
 </div>
 </body>
