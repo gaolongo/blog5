@@ -71,3 +71,10 @@ Route::group(['middleware'=>['Login'],'prefix'=>'/admin/'],function() {
     Route::post('product_add_do','Admin\IndexController@product_add_do'); //货品添加 
 });
 
+
+//前台 前台
+Route::middleware(['apiheader'])->group(function(){
+    Route::any('/api/index/login','Api\IndexController@login'); //登录添加
+    Route::any('/api/index/login_do','Api\IndexController@login_do'); //登录添加执行
+    Route::any('/api/index/cate','Api\IndexController@cate'); //分类接口
+});

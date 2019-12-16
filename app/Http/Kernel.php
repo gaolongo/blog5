@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'apiheader' =>\App\Http\Middleware\ApiHeader::class,
         'Quanxian' => \App\Http\Middleware\admin\Quanxian::class,
         'Login' => \App\Http\Middleware\admin\Login::class,
+        'mytoken' =>\App\Http\Middleware\MyToken::class,
     ];
 
     /**
