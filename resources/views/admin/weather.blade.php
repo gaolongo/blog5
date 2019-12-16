@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-<h4>一周气温展示</h4>
-城市：<input type="text" name="city">
-<input type="button" value="搜索" id="search">(城市名可以为拼音和汉字)
+<h2><center><b>一周气温展示</b></center></h2>
+城市：<input type="text"  name="city">
+<input type="button" class='search btn btn-info' value="搜索"  id="search">&nbsp;&nbsp;&nbsp;(城市名可以为拼音和汉字)
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
 <script src="https://code.highcharts.com.cn/highcharts/highcharts.js"></script>
