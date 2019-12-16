@@ -73,9 +73,29 @@
                             </li>
                             <li>
                                 <a class="J_menuItem" href="/admin/attr_add">属性模块</a>
+
                             </li>
                             <li>
                                 <a class="J_menuItem" href="/admin/goods_add">商品模块</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">报表模块</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="{{url('admin/stat_index')}}">注册汇总</a>
+
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="{{url('admin/inventory_index')}}">商品库存汇总</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="{{url('admin/summary_index')}}">订单汇总</a>
                             </li>
                         </ul>
                     </li>

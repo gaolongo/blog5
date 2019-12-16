@@ -5,13 +5,20 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use App\Model\Admin;
 use App\Model\Category;
 use App\model\Type;
 use App\model\Attribute;
 use App\model\Goods;
 use App\model\GoodsAttr;
 use App\model\Product;
+
 use Illuminate\Support\Facades\Cache;
+
+use App\Model\Stat;
+use App\Model\Inventory;
+use App\Model\Summary;
+
 use DB;
 class IndexController extends Controller
 {
@@ -20,6 +27,7 @@ class IndexController extends Controller
     {
     	return view('admin.index');
     }
+
     //天气添加页面
     public function weather()
     {
@@ -50,6 +58,7 @@ class IndexController extends Controller
         }
         return view('admin.weather');
     }
+
     //分类视图
     public function cate_add()
     {
@@ -615,4 +624,48 @@ class IndexController extends Controller
             return "<script>alert('添加失败,请重试');window.history.go(-1)</script>";die;
         }
     }
+
+    //注册汇总
+    public function stat_index(Request $request)
+    {
+        $query=$request->all();
+        $where=[];
+        //搜索
+        if($query['admin_name']??''){
+            $where[]=['admin_name','like',"%$query[admin_name]%"];
+        }
+        $pageSize=config('app.pageSize');//每页显示条数
+        $data=Admin::where($where)->paginate($pageSize);
+        //dd($data);
+        return view('admin.stat_index',['data'=>$data,'query'=>$query]);
+    }
+    //商品库存汇总
+    public function inventory_index(Request $request)
+    {
+        $query=$request->all();
+        $where=[];
+        //搜索
+        if($query['in_name']??''){
+            $where[]=['in_name','like',"%$query[in_name]%"];
+        }
+        $pageSize=config('app.pageSize');//每页显示条数
+        $data = Product::join('goods','goods.goods_id','=','product.goods_id')->where($where)->paginate($pageSize);
+        //dd($data);
+        return view('admin.inventory_index',['data'=>$data,'query'=>$query]);
+    }
+    //订单汇总
+    public function summary_index(Request $request)
+    {
+        $query=$request->all();
+        $where=[];
+        //搜索
+        if($query['or_num']??''){
+            $where[]=['or_num','like',"%$query[or_num]%"];
+        }
+        $pageSize=config('app.pageSize');//每页显示条数
+        $data=Summary::where($where)->paginate($pageSize);
+        //dd($data);
+        return view('admin.summary_index',['data'=>$data,'query'=>$query]);
+    }
+
 }
