@@ -11,6 +11,8 @@ use App\model\Attribute;
 use App\model\Goods;
 use App\model\GoodsAttr;
 use App\model\Product;
+use Illuminate\Support\Facades\Cache;
+use DB;
 class IndexController extends Controller
 {
 	//后台首页
@@ -18,7 +20,33 @@ class IndexController extends Controller
     {
     	return view('admin.index');
     }
-<<<<<<< Updated upstream
+    //天气添加页面
+    public function weather()
+    {
+        return view('admin.weather');
+    }
+    //天气添加执行
+    public function weather_do()
+    {
+        $city = request('city');
+        $cache_name = 'weatherData_'.$city;
+        $data = \Cache::get($cache_name);
+        //如果是ajax请求，调用天气接口
+        if (request()->ajax()) {
+            //调用天气接口
+            $url = 'http://api.k780.com/?app=weather.future&weaid='.$city.'&&appkey=43595&sign=f803d6a557060c7118587c6a22d9760a';
+            // dd($url);
+            $data =  file_get_contents($url);
+            $time24 = strtotime(date("Y-m-d"))+86400;
+            // dd($time24);
+            $second = $time24 - time();
+            // dd($second);
+            \Cache::put($cache_name,$data,$second);
+            echo $data;die;
+        }
+    }
+
+
     //分类视图
     public function cate_add()
     {
@@ -31,29 +59,59 @@ class IndexController extends Controller
     {
 
         $res=request()->all();
+        $cate_name=request('cate_name');
+        $onlyRes=Category::where('cate_name',$cate_name)->first();
+        if ($onlyRes) {
+            echo "<script>alert('该分类名已占用');location.href='/admin/cate_add';</script>";die;
+        }
         $data=Category::insert([
             'cate_name'=>$res['cate_name'],
             'cate_pid'=>$res['cate_pid']
         ]);
         // dd($data);;
-        if($data){
-            return redirect('admin/cate_list');
+        if ($data){
+            echo "<script>alert('添加成功');location.href='/admin/cate_list';</script>";
+        }else{
+            echo "<script>alert('添加失败');location.href='/admin/cate_add';</script>";
         }
     }
+    //分类唯一性
+    public function nameOnly(Request $request)
+    {
+      $info=$request->all();
+      $cate_name=request('cate_name');
+      $onlyRes=Category::where('cate_name',$cate_name)->first();
+      //dd($onlyRes);
+      if($onlyRes){
+        echo json_encode(['font'=>1]);
+      }else{
+        echo json_encode(['font'=>2]);
+      }
+    }
+
     //分类列表
     public function cate_list()
-    {
-        $data=Category::get();
-        return view('admin.cate_list',['data'=>$data]);
+    { 
+       $res = Category::get()->toArray();
+        //  dd($res);
+        $cate = Category::createTree($res);
+        foreach($res as $k=>$v){
+            //$aa = Goods::where('cate_id',$v['cate_id'])->count();
+            // dd($aa);
+           $cate[$k]['cate_count'] = Goods::where('cate_id',$v['cate_id'])->count();
+        }
+        return view('admin.cate_list',compact('cate'));
     }
     //分类删除
     public function cate_del($cate_id)
     {
     	$data=Category::where(['cate_id'=>$cate_id])->delete();
     	// dd($data);
-    	if($data){
-			return redirect('admin/cate_list');
-    	}
+    	if ($data){
+            echo "<script>alert('删除成功');location.href='/admin/cate_list';</script>";
+        }else{
+            echo "<script>alert('删除失败');location.href='/admin/cate_list';</script>";
+        }
     }
     //类型视图
     public function type_add()
@@ -83,6 +141,15 @@ class IndexController extends Controller
             $data[$key]['attr_count']=$info;
         }
         return view('admin.type_list',['data'=>$data]);
+    }
+    //类型删除
+    public function type_del($type_id)
+    {
+        $data=Type::where(['type_id'=>$type_id])->delete();
+        // dd($data);
+        if($data){
+            return redirect('admin/type_list');
+        }
     }
     //属性视图
     public function attr_add()
@@ -179,12 +246,16 @@ class IndexController extends Controller
         };
         // dd($path);
         $good_img="http://www.blog5.com/".$path;
+         //生成商品货单号
+        $goods_nb = '6789'.rand(00000,99999);
         // dd($good_img);
         $res=Goods::create([
             'goods_name'=>$data['goods_name'],
             'cate_id'=>$data['cate_id'],
             'goods_price'=>$data['goods_price'],
+            'goods_nb'=>$goods_nb,
             'goods_img'=>$good_img,
+            'content'=>$data['content']
         ]);
         // dd($res);
         $goods_id=$res['goods_id'];
@@ -263,7 +334,6 @@ class IndexController extends Controller
         }
     }
 
-=======
 
     //登陆页面
     public function login()
@@ -535,5 +605,4 @@ class IndexController extends Controller
             return "<script>alert('添加失败,请重试');window.history.go(-1)</script>";die;
         }
     }
->>>>>>> Stashed changes
 }

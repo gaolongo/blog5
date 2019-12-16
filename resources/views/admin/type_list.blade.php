@@ -14,6 +14,7 @@
         <td>{{$v->attr_count}}</td>
         <td>
             <a href="/admin/attr_attrlist?type_id={{$v['type_id']}}">属性列表</a>
+            <a href="{{url('admin/type_del',['type_id'=>$v->type_id])}}">删除</a>
         </td>
     </tr>
     @endforeach

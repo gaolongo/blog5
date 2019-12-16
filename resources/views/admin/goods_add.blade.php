@@ -42,7 +42,7 @@
 		<div class='div_detail div_form' style='display:none'>
 			<div class="form-group">
 				<label for="exampleInputFile">商品详情</label>
-				<textarea class="form-control" rows="3"></textarea>
+				<textarea class="form-control"  name="content" rows="3"></textarea>
 			</div>
 		</div>
 		<div class='div_attr div_form' style='display:none'>
