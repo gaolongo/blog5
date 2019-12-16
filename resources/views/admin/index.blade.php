@@ -61,7 +61,7 @@
                     <li>
                         <a href="#">
                             <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">商品模块</span>
+                            <span class="nav-label">SKU模块</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">

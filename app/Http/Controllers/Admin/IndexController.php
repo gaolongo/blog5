@@ -28,25 +28,28 @@ class IndexController extends Controller
     //天气添加执行
     public function weather_do()
     {
-        $city = request('city');
-        $cache_name = 'weatherData_'.$city;
-        $data = \Cache::get($cache_name);
-        //如果是ajax请求，调用天气接口
-        if (request()->ajax()) {
-            //调用天气接口
-            $url = 'http://api.k780.com/?app=weather.future&weaid='.$city.'&&appkey=43595&sign=f803d6a557060c7118587c6a22d9760a';
-            // dd($url);
-            $data =  file_get_contents($url);
-            $time24 = strtotime(date("Y-m-d"))+86400;
-            // dd($time24);
-            $second = $time24 - time();
-            // dd($second);
-            \Cache::put($cache_name,$data,$second);
+        if(request()->ajax()){
+            //读缓存
+            $city=request('city');
+            //北京  weatherData_北京
+            //天津  weatherData_天津
+            $cache_name='weatherData_'.$city;
+            $data=Cache::get($cache_name);
+            if(empty($data)){
+                //调用天气接口
+                $url = 'http://api.k780.com/?app=weather.future&weaid='.$city.'&&appkey=43595&sign=f803d6a557060c7118587c6a22d9760a';
+                // dd($url);
+                //发请求
+                $data=file_get_contents($url);
+                $time24=strtotime(date("Y-m-d"))+86400;
+                $second=$time24-time();
+                Cache::put($cache_name,$data,$second);
+            }
+            //把调接口得到的json格式天气数据返回
             echo $data;die;
         }
+        return view('admin.weather');
     }
-
-
     //分类视图
     public function cate_add()
     {
@@ -57,7 +60,6 @@ class IndexController extends Controller
     //分类添加
     public function cate_add_do(Request $request)
     {
-
         $res=request()->all();
         $cate_name=request('cate_name');
         $onlyRes=Category::where('cate_name',$cate_name)->first();
@@ -89,6 +91,14 @@ class IndexController extends Controller
       }
     }
 
+    public function cate_listSave()
+    {
+        $cate_name=request()->cate_name;
+        $data=Category::where('cate_name',$cate_name)->first();
+        if($data){
+            return $data;
+        }
+    }
     //分类列表
     public function cate_list()
     { 

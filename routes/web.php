@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 
-
+Route::get('index','Admin\IndexController@index'); //后台首页
 //后台登陆
 Route::any('admin/login','Admin\IndexController@login');  //登陆添加
 Route::any('admin/login_denglu', 'Admin\IndexController@login_denglu'); //后台登陆执行
@@ -25,7 +25,6 @@ Route::group(['middleware'=>['Login'],'prefix'=>'/admin/'],function() {
    Route::get('index','Admin\IndexController@index'); //后台首页
    Route::get('weather','Admin\IndexController@weather'); //天气添加页面
    Route::get('weather_do','Admin\IndexController@weather_do'); //天气添加执行页面
-   
    //后台用户模块 rbac
    Route::get('admin','Admin\IndexController@admin'); //管理员展示
    Route::group(['middleware' => ['Quanxian']], function () {
@@ -44,7 +43,6 @@ Route::group(['middleware'=>['Login'],'prefix'=>'/admin/'],function() {
     Route::get('role', 'Admin\IndexController@role');    //角色展示
     Route::post('role_insert', 'Admin\IndexController@role_insert');   //角色添加执行
     Route::post('role_right', 'Admin\IndexController@role_right');     //角色权限关联
-
     //后台商品模块
     //分类模块
     Route::get('cate_add','Admin\IndexController@cate_add'); //分类视图
