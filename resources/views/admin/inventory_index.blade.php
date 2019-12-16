@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <form action="">
-        <input type="text"  name="in_name" id="" value="{{$query['in_name']??''}}" placeholder="商品名称">
+        <input type="text"  name="goods_name" id="" value="{{$query['goods_name']??''}}" placeholder="商品名称">
         <button>搜索</button>
     </form>
    <table class="table table-bordered">

@@ -645,8 +645,8 @@ class IndexController extends Controller
         $query=$request->all();
         $where=[];
         //搜索
-        if($query['in_name']??''){
-            $where[]=['in_name','like',"%$query[in_name]%"];
+        if($query['goods_name']??''){
+            $where[]=['goods_name','like',"%$query[goods_name]%"];
         }
         $pageSize=config('app.pageSize');//每页显示条数
         $data = Product::join('goods','goods.goods_id','=','product.goods_id')->where($where)->paginate($pageSize);
